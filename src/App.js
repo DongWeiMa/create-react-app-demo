@@ -36,7 +36,7 @@ class App extends Component {
         console.log("hash:" + hash);
         switch (hash) {
             case "/":
-                o = <ISearch/>;
+                o = <Kq/>;
                 break;
             case "/kq":
                 o = <Kq/>;

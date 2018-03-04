@@ -53,7 +53,7 @@ class Jiju extends Component {
                         <Item extra={jijus["school_name"]}>学校名称</Item>
                         <Item extra={jijus["jiju_protocol"]}>机具协议</Item>
                         <Item extra={jijus["jiju_name"]}>机具名称</Item>
-                        <Item extra={jijus["jiju_id"]}>最近连接时间</Item>
+                        <Item extra={jijus["recent_active_time"]}>最近连接时间</Item>
 
                     </List>
                 </p>
