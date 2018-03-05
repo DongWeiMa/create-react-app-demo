@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import 'whatwg-fetch'
 import './App.css';
-import ISearch from "./ISearch";
 import Jiju from './JijuPage';
 import Kq from './KqPage'
 

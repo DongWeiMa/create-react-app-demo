@@ -1,20 +1,33 @@
-import {Accordion, List} from 'antd-mobile';
+import { Accordion,List} from 'antd-mobile';
 import React, {Component} from 'react';
 import 'whatwg-fetch'
-import ISearch from "./ISearch";
 import {parseJSON, checkStatus} from './Utils';
-import {Toast, WhiteSpace, WingBlank, Button} from 'antd-mobile';
+import {SearchBar, WhiteSpace, WingBlank,Toast} from 'antd-mobile';
 
 const Item = List.Item;
 const Brief = Item.Brief;
-let host = "http://" + document.domain + ":5000";
+let host = "http://" + window.location.host;
 
 class Jiju extends Component {
     // //获取url中的参数
     state = {
         jijus: [],
+        ju: ''
     };
 
+    clear = () => {
+        this.setState({ju: ''});
+    };
+
+    juOnChange = (value) => {
+        this.setState({ju: value});
+    };
+
+
+    juHandleClick = (value) => {
+        //重定向
+        window.location.href="/jiju?jijuId="+value;
+    };
     componentDidMount() {
         let jijuId = document.location.search.split("=")[1];
         let result;
@@ -43,24 +56,45 @@ class Jiju extends Component {
         const jijus = this.state.jijus;
         let result;
         console.log(jijus);
+        let search = <div>
+            <WhiteSpace/>
+            <WhiteSpace/>
+            <WhiteSpace/>
+            <WhiteSpace/>
+            <WingBlank>
+                <div className="sub-title">机具查询</div>
+            </WingBlank>
+            <WhiteSpace/>
+            <SearchBar
+                value={this.state.ju}
+                placeholder="请输入ju_id"
+                onSubmit={value => this.juHandleClick(value)}
+                onChange={this.juOnChange}
+            />
+            <WhiteSpace/>
+        </div>;
         if (jijus !== null && jijus !== undefined) {
             result = <div>
-                <ISearch/>
+                {search}
                 <p>
                     <List renderHeader={() => ' 机具信息'} className="my-list">
                         <Item extra={jijus["jiju_id"]}>机具Id</Item>
                         <Item extra={jijus["school_id"]}>学校Id</Item>
                         <Item extra={jijus["school_name"]}>学校名称</Item>
-                        <Item extra={jijus["jiju_protocol"]}>机具协议</Item>
+                        <Item arrow="horizontal" multipleLine onClick={() => {}}>
+                            机具协议 <Brief>{jijus["jiju_protocol"]}</Brief>
+                        </Item>
                         <Item extra={jijus["jiju_name"]}>机具名称</Item>
-                        <Item extra={jijus["recent_active_time"]}>最近连接时间</Item>
+                        <Item arrow="horizontal" multipleLine onClick={() => {}}>
+                            最近连接时间 <Brief>{jijus["recent_active_time"]}</Brief>
+                        </Item>
 
                     </List>
                 </p>
             </div>;
         } else {
             result = <div>
-                <ISearch/>
+                {search}
                 <p>
                     该id无效
                 </p>

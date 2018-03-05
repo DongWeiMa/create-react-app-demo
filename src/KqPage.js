@@ -1,18 +1,30 @@
-import {Accordion, List} from 'antd-mobile';
+import { Accordion,List} from 'antd-mobile';
 import React, {Component} from 'react';
 import 'whatwg-fetch'
-import ISearch from "./ISearch";
 import {parseJSON, checkStatus} from './Utils';
-import {Toast, WhiteSpace, WingBlank, Button} from 'antd-mobile';
+import {SearchBar, WhiteSpace, WingBlank,Toast} from 'antd-mobile';
 const Item = List.Item;
 const Brief = Item.Brief;
-let host = "http://" + document.domain + ":5000";
+let host = "http://" + window.location.host;
 
 
 class Kq extends Component {
     //获取url中的参数
     state = {
         kqs: [],
+
+    };
+
+    kqOnChange = (value) => {
+        this.setState({kq: value});
+    };
+    clear = () => {
+        this.setState({kq: ''});
+    };
+
+    kqHandleClick = (value) => {
+        //重定向到一个页面
+        window.location.href="/kq?oriCardId="+value;
     };
 
     componentDidMount() {
@@ -41,7 +53,25 @@ class Kq extends Component {
         //获取数据
         const kq_msq = this.state.kqs[0];
         let result;
-        console.log(kq_msq)
+        console.log(kq_msq);
+        let search =
+            <div>
+                <WhiteSpace/>
+                <WhiteSpace/>
+                <WhiteSpace/>
+                <WhiteSpace/>
+                <WingBlank>
+                    <div className="sub-title">考勤查询</div>
+                </WingBlank>
+                <WhiteSpace/>
+                <SearchBar
+                    value={this.state.kq}
+                    placeholder="请输入kq_id"
+                    onSubmit={value => this.kqHandleClick(value)}
+                    onChange={this.kqOnChange}
+                />
+                <WhiteSpace/>
+            </div>;
         if (kq_msq !== null && kq_msq !== undefined) {
             let table =
                 <div style={{marginTop: 10, marginBottom: 10}}>
@@ -60,7 +90,7 @@ class Kq extends Component {
                     </Accordion>
                 </div>;
             result = <div>
-                <ISearch/>
+                    {search}
                 <p>
                     <List renderHeader={() => ' 考勤信息'} className="my-list">
                         <Item extra={kq_msq["school_name"]}>学校名称</Item>
@@ -74,7 +104,7 @@ class Kq extends Component {
             </div>;
         } else {
             result = <div>
-                <ISearch/>
+                {search}
                 <p>
                     该id无效
                 </p>
