@@ -1,7 +1,7 @@
 import { Accordion,List} from 'antd-mobile';
 import React, {Component} from 'react';
 import 'whatwg-fetch'
-import {parseJSON, checkStatus} from './Utils';
+import {parseJSON, checkStatus,getTime} from './Utils';
 import {SearchBar, WhiteSpace, WingBlank,Toast} from 'antd-mobile';
 const Item = List.Item;
 const Brief = Item.Brief;
@@ -82,7 +82,7 @@ class Kq extends Component {
                                     this.state.kqs.map((kq) => {
                                         console.log(kq);
                                         return (
-                                            <Item>{kq["recv_time"]}</Item>)
+                                            <Item>{getTime(kq["recv_time"])}</Item>)
                                     })
                                 }
                             </List>
@@ -93,11 +93,22 @@ class Kq extends Component {
                     {search}
                 <p>
                     <List renderHeader={() => ' 考勤信息'} className="my-list">
-                        <Item extra={kq_msq["school_name"]}>学校名称</Item>
-                        <Item extra={kq_msq["class_name"]}>班级名称</Item>
-                        <Item extra={kq_msq["user_name"]}>用户姓名</Item>
-                        <Item extra={kq_msq["user_type"]}>用户类型</Item>
-                        <Item extra={kq_msq["jiju_id"]}>机具Id</Item>
+
+                        <Item arrow="horizontal" multipleLine onClick={() => {}}>
+                            学校名称 <Brief>{kq_msq["school_name"]}</Brief>
+                        </Item>
+                        <Item arrow="horizontal" multipleLine onClick={() => {}}>
+                            班级名称 <Brief>{kq_msq["class_name"]}</Brief>
+                        </Item>
+                        <Item arrow="horizontal" multipleLine onClick={() => {}}>
+                            用户姓名 <Brief>{kq_msq["user_name"]}</Brief>
+                        </Item>
+                        <Item arrow="horizontal" multipleLine onClick={() => {}}>
+                            用户类型 <Brief>{kq_msq["user_type"]}</Brief>
+                        </Item>
+                        <Item arrow="horizontal" multipleLine onClick={() => {}}>
+                            机具Id <Brief>{kq_msq["jiju_id"]}</Brief>
+                        </Item>
                     </List>
                     {table}
                 </p>

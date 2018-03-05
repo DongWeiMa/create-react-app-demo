@@ -1,7 +1,7 @@
 import { Accordion,List} from 'antd-mobile';
 import React, {Component} from 'react';
 import 'whatwg-fetch'
-import {parseJSON, checkStatus} from './Utils';
+import {parseJSON, checkStatus,getTime} from './Utils';
 import {SearchBar, WhiteSpace, WingBlank,Toast} from 'antd-mobile';
 
 const Item = List.Item;
@@ -67,7 +67,7 @@ class Jiju extends Component {
             <WhiteSpace/>
             <SearchBar
                 value={this.state.ju}
-                placeholder="请输入ju_id"
+                placeholder="请输入机具Id"
                 onSubmit={value => this.juHandleClick(value)}
                 onChange={this.juOnChange}
             />
@@ -79,14 +79,21 @@ class Jiju extends Component {
                 <p>
                     <List renderHeader={() => ' 机具信息'} className="my-list">
                         <Item extra={jijus["jiju_id"]}>机具Id</Item>
-                        <Item extra={jijus["school_id"]}>学校Id</Item>
-                        <Item extra={jijus["school_name"]}>学校名称</Item>
+
+                        <Item arrow="horizontal" multipleLine onClick={() => {}}>
+                            学校Id <Brief>{jijus["school_id"]}</Brief>
+                        </Item>
+                        <Item arrow="horizontal" multipleLine onClick={() => {}}>
+                            学校名称 <Brief>{jijus["school_name"]}</Brief>
+                        </Item>
                         <Item arrow="horizontal" multipleLine onClick={() => {}}>
                             机具协议 <Brief>{jijus["jiju_protocol"]}</Brief>
                         </Item>
-                        <Item extra={jijus["jiju_name"]}>机具名称</Item>
                         <Item arrow="horizontal" multipleLine onClick={() => {}}>
-                            最近连接时间 <Brief>{jijus["recent_active_time"]}</Brief>
+                            机具名称 <Brief>{jijus["jiju_name"]}</Brief>
+                        </Item>
+                        <Item arrow="horizontal" multipleLine onClick={() => {}}>
+                            最近连接时间 <Brief>{getTime(jijus["recent_active_time"])}</Brief>
                         </Item>
 
                     </List>
