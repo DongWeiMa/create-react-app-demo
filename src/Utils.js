@@ -21,12 +21,13 @@ export function checkStatus(response) {
 
 export function  getTime(d) {
     let date = new Date(d);
-    let Y = date.getFullYear() + '-';
-    let M = (date.getMonth()+1 < 10 ? '0'+(date.getMonth()+1) : date.getMonth()+1) + '-';
-    let D = date.getDate() + ' ';
-    let h = date.getHours() + ':';
-    let m = date.getMinutes() + ':';
-    let s = date.getSeconds();
+    console.log(date.getUTCDate());
+    let Y = date.getUTCFullYear() + '-';
+    let M = (date.getUTCMonth()+1 < 10 ? '0'+(date.getMonth()+1) : date.getMonth()+1) + '-';
+    let D = date.getUTCDate() + ' ';
+    let h = date.getUTCHours() + ':';
+    let m = date.getUTCMinutes() + ':';
+    let s = date.getUTCSeconds();
     console.log(Y+M+D+h+m+s); //呀麻碟
     return Y+M+D+h+m+s;
 }

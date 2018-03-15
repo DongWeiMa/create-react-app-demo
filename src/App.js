@@ -3,6 +3,7 @@ import 'whatwg-fetch'
 import './App.css';
 import Jiju from './JijuPage';
 import Kq from './KqPage'
+import School from './School'
 
 
 class App extends Component {
@@ -43,6 +44,9 @@ class App extends Component {
             case "/jiju":
                 o = <Jiju/>;
                 break;
+          case "/school":
+            o = <School/>;
+            break;
         }
         return (
             <div className="App">
